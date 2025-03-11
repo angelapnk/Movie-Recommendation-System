@@ -22,13 +22,18 @@ import {
 
 export default function SearchResults() {
   const [location] = useLocation();
+  const [query, setQuery] = useState<string>('');
   
-  // Extract search query
-  const searchParams = new URLSearchParams(window.location.search);
-  const query = searchParams.get('query') || '';
+  // Extract search query from URL whenever the location changes
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const queryParam = searchParams.get('query') || '';
+    setQuery(queryParam);
+    console.log("Location changed, new query:", queryParam);
+  }, [location]);
   
   useEffect(() => {
-    console.log("Search query:", query);
+    console.log("Using search query:", query);
     console.log("Search URL:", window.location.search);
   }, [query]);
   
@@ -50,11 +55,20 @@ export default function SearchResults() {
       if (releaseYear !== 'all') {
         searchParams.append('year', releaseYear);
       }
-      const response = await fetch(`/api/search/movie?${searchParams.toString()}`);
+      
+      const requestURL = `/api/search/movie?${searchParams.toString()}`;
+      console.log("Sending search request to:", requestURL);
+      
+      const response = await fetch(requestURL);
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Search request failed:", errorText);
         throw new Error('Search request failed');
       }
-      return response.json();
+      
+      const results = await response.json();
+      console.log("Search results:", results);
+      return results;
     },
     enabled: query.length > 0,
   });
@@ -62,7 +76,7 @@ export default function SearchResults() {
   // Update URL when filters change
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set('q', query);
+    params.set('query', query); // Changed from 'q' to 'query' to match the header component
     
     if (sortBy !== 'popularity.desc') {
       params.set('sort', sortBy);

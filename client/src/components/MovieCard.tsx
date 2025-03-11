@@ -28,9 +28,13 @@ export function MovieCard({
           src={posterPath}
           alt={`${movie.title} poster`}
           className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+          onError={(e) => {
+            // If image fails to load, replace with placeholder
+            (e.target as HTMLImageElement).src = 'https://via.placeholder.com/500x750?text=No+Image+Available';
+          }}
         />
         <div className="absolute top-2 right-2 bg-secondary text-dark font-mono text-sm font-bold px-2 py-1 rounded">
-          {movie.voteAverage?.toFixed(1) || 'N/A'}
+          {movie.voteAverage ? movie.voteAverage.toFixed(1) : 'N/A'}
         </div>
         {showTrailerButton && (
           <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-60 transition-opacity flex items-end justify-center">
@@ -51,9 +55,15 @@ export function MovieCard({
         <CardContent className="p-3 cursor-pointer">
           <h3 className="font-heading font-bold text-gray-900 dark:text-white truncate">{movie.title}</h3>
           <div className="flex items-center text-xs text-gray-600 dark:text-gray-400">
-            <span>{new Date(movie.releaseDate).getFullYear()}</span>
-            <span className="mx-1">•</span>
-            <span>{movie.genres?.[0]?.name || 'Unknown'}</span>
+            <span>
+              {movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : 'Unknown'}
+            </span>
+            {movie.genres && movie.genres.length > 0 && (
+              <>
+                <span className="mx-1">•</span>
+                <span>{movie.genres[0]?.name || 'Unknown'}</span>
+              </>
+            )}
           </div>
         </CardContent>
       </Link>

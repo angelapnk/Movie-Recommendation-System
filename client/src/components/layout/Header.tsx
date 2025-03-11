@@ -25,7 +25,9 @@ export default function Header() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
-      navigate(`/search?query=${encodeURIComponent(query.trim())}`);
+      console.log("Searching for:", query.trim());
+      const searchParam = encodeURIComponent(query.trim());
+      navigate(`/search?query=${searchParam}`);
       setQuery("");
     } else {
       toast({
