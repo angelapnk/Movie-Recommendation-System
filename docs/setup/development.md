@@ -84,3 +84,48 @@ npm run build
 ```
 
 This will create optimized production builds for both the frontend and backend.
+# Development Setup Guide
+
+## Prerequisites
+- Node.js (v16 or higher)
+- npm (v7 or higher)
+- Git
+
+## Initial Setup
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/angelapnk/Movie-Recommendation-System.git
+   cd Movie-Recommendation-System
+   ```
+
+2. Install dependencies:
+   ```
+   npm install
+   ```
+
+3. Set up environment variables:
+   ```
+   cp .env.example .env
+   ```
+   Edit `.env` and add your TMDB API key
+
+4. Start the development server:
+   ```
+   npm run dev
+   ```
+
+## Development Workflow
+
+1. Create a feature branch following our Git workflow guidelines
+2. Make your changes to the code
+3. Run tests: `npm test`
+4. Run linting: `npm run lint`
+5. Submit a pull request
+
+## Project Structure
+
+- `client/`: Frontend code (React)
+- `server/`: Backend code (Express)
+- `shared/`: Shared code and types
+- `docs/`: Documentation

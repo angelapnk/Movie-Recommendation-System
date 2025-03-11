@@ -1,0 +1,33 @@
+
+[
+  {
+    "id": 1,
+    "title": "Inception",
+    "overview": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+    "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+    "releaseDate": "2010-07-16",
+    "genres": [28, 878, 53],
+    "runtime": 148,
+    "voteAverage": 8.4
+  },
+  {
+    "id": 2,
+    "title": "The Shawshank Redemption",
+    "overview": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+    "posterPath": "/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
+    "releaseDate": "1994-09-23",
+    "genres": [18, 80],
+    "runtime": 142,
+    "voteAverage": 8.7
+  },
+  {
+    "id": 3,
+    "title": "The Dark Knight",
+    "overview": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+    "posterPath": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    "releaseDate": "2008-07-18",
+    "genres": [18, 28, 80, 53],
+    "runtime": 152,
+    "voteAverage": 8.5
+  }
+]

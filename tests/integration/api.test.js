@@ -1,0 +1,59 @@
+
+/**
+ * Integration tests for API endpoints
+ */
+
+// Import necessary modules
+const request = require('supertest');
+const express = require('express');
+
+// Mock the Express app and API routes
+const app = express();
+
+// Mock the TMDB API responses
+jest.mock('../../server/tmdb', () => ({
+  fetchTrendingMovies: jest.fn().mockResolvedValue([
+    { id: 1, title: 'Trending Movie 1' },
+    { id: 2, title: 'Trending Movie 2' }
+  ]),
+  fetchMovieDetails: jest.fn().mockResolvedValue({
+    id: 1, 
+    title: 'Movie Title',
+    overview: 'Movie overview text'
+  }),
+  searchMovies: jest.fn().mockResolvedValue({
+    results: [{ id: 1, title: 'Search Result 1' }],
+    total_pages: 1,
+    total_results: 1
+  })
+}));
+
+// Import routes after mocking
+const { setupRoutes } = require('../../server/routes');
+setupRoutes(app);
+
+describe('API Integration Tests', () => {
+  test('GET /api/movies/trending should return trending movies', async () => {
+    const response = await request(app).get('/api/movies/trending');
+    
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(2);
+    expect(response.body[0].title).toBe('Trending Movie 1');
+  });
+  
+  test('GET /api/movies/:id should return movie details', async () => {
+    const response = await request(app).get('/api/movies/1');
+    
+    expect(response.status).toBe(200);
+    expect(response.body.title).toBe('Movie Title');
+    expect(response.body.overview).toBe('Movie overview text');
+  });
+  
+  test('GET /api/movies/search should return search results', async () => {
+    const response = await request(app).get('/api/movies/search?query=test');
+    
+    expect(response.status).toBe(200);
+    expect(response.body.results).toHaveLength(1);
+    expect(response.body.results[0].title).toBe('Search Result 1');
+  });
+});

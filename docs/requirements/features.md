@@ -46,3 +46,17 @@
 - Smooth transitions between pages
 - Optimized images with proper sizing
 - Minimal bundle size
+# Features
+
+## Core Features
+1. **Movie Search** - Search for movies by title, genre, or actor
+2. **Movie Recommendations** - Get personalized movie recommendations
+3. **Movie Details** - View detailed information about movies
+4. **User Authentication** - Create an account, log in, and manage preferences
+5. **Watchlist** - Save movies to watch later
+
+## Future Features
+1. **Social Sharing** - Share movie recommendations with friends
+2. **Rating System** - Rate movies and see community ratings
+3. **Advanced Filters** - Filter movies by release date, language, and more
+4. **Movie Trailers** - Watch movie trailers directly in the app
