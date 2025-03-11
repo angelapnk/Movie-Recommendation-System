@@ -27,6 +27,11 @@ export default function SearchResults() {
   const searchParams = new URLSearchParams(window.location.search);
   const query = searchParams.get('query') || '';
   
+  useEffect(() => {
+    console.log("Search query:", query);
+    console.log("Search URL:", window.location.search);
+  }, [query]);
+  
   // State for filters
   const [sortBy, setSortBy] = useState<string>("popularity.desc");
   const [releaseYear, setReleaseYear] = useState<string>("all");
