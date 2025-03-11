@@ -25,6 +25,7 @@ function Router() {
           <Route path="/recommendations" component={Recommendations} />
           <Route path="/watchlist" component={Watchlist} />
           <Route path="/search" component={SearchResults} />
+          <Route path="/login" component={Login} />
           <Route component={NotFound} />
         </Switch>
       </main>

@@ -3,7 +3,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Film, Wand2, Shuffle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import MovieSlider from "@/components/layout/MovieSlider";
+import MovieGrid from "@/components/layout/MovieGrid";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CategoryCard } from "@/components/CategoryCard";
 
@@ -77,7 +77,7 @@ export default function Home() {
       </section>
 
       {/* Trending Movies Section */}
-      <MovieSlider 
+      <MovieGrid 
         title="Trending Movies" 
         movies={trendingMovies || []} 
         isLoading={isLoadingTrending}
@@ -117,33 +117,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Movie Recommender Section */}
-      <section className="py-12 px-4 bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20">
-        <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden">
-            <div className="md:flex">
-              <div className="md:w-1/2 p-8 flex flex-col justify-center">
-                <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4">Personalized Recommendations</h2>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
-                  Answer a few questions about your preferences and mood, and we'll suggest movies tailored just for you.
-                </p>
-                <Link href="/recommendations">
-                  <Button size="lg" className="bg-primary hover:bg-red-700 text-white px-6 py-3 rounded-full font-bold transition-colors self-start">
-                    <Wand2 className="mr-2 h-4 w-4" /> Start Now
-                  </Button>
-                </Link>
-              </div>
-              <div className="md:w-1/2 relative min-h-[200px] md:min-h-0">
-                <img 
-                  src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" 
-                  alt="Movie recommendations" 
-                  className="w-full h-full object-cover md:absolute inset-0"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
     </>
   );
 }
