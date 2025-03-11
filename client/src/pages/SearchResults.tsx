@@ -25,7 +25,7 @@ export default function SearchResults() {
   
   // Extract search query
   const searchParams = new URLSearchParams(window.location.search);
-  const query = searchParams.get('q') || '';
+  const query = searchParams.get('query') || '';
   
   // State for filters
   const [sortBy, setSortBy] = useState<string>("popularity.desc");
@@ -34,10 +34,23 @@ export default function SearchResults() {
   
   // Fetch search results
   const { data: searchResults, isLoading } = useQuery({
-    queryKey: [
-      '/api/search/movie', 
-      { query, sortBy, year: releaseYear !== 'all' ? releaseYear : undefined }
-    ],
+    queryKey: ['/api/search/movie', query, sortBy, releaseYear !== 'all' ? releaseYear : 'all'],
+    queryFn: async () => {
+      if (!query || query.length === 0) return [];
+      const searchParams = new URLSearchParams();
+      searchParams.append('query', query);
+      if (sortBy !== 'popularity.desc') {
+        searchParams.append('sort_by', sortBy);
+      }
+      if (releaseYear !== 'all') {
+        searchParams.append('year', releaseYear);
+      }
+      const response = await fetch(`/api/search/movie?${searchParams.toString()}`);
+      if (!response.ok) {
+        throw new Error('Search request failed');
+      }
+      return response.json();
+    },
     enabled: query.length > 0,
   });
 

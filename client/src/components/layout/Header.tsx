@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "wouter";
-import { Film, Moon, Sun, Search, Menu, X, User } from "lucide-react";
+import { Film, Search, Menu, X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -16,30 +16,23 @@ export default function Header() {
   const [location, navigate] = useLocation();
   const [query, setQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(
-    document.documentElement.classList.contains("dark")
-  );
   const { toast } = useToast();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
-      navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+      navigate(`/search?query=${encodeURIComponent(query.trim())}`);
+      setQuery("");
+    } else {
+      toast({
+        title: "Search error",
+        description: "Please enter a search term",
+        variant: "destructive"
+      });
     }
   };
 
-  const toggleDarkMode = () => {
-    const newMode = !darkMode;
-    setDarkMode(newMode);
-    
-    if (newMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("darkMode", "true");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("darkMode", "false");
-    }
-  };
+
 
   useEffect(() => {
     // Clean up the query after navigation
@@ -47,7 +40,7 @@ export default function Header() {
   }, [location]);
 
   return (
-    <header className="sticky top-0 bg-white dark:bg-dark shadow-md z-50 transition-colors duration-200">
+    <header className="sticky top-0 bg-white shadow-md z-50 transition-colors duration-200">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center">
@@ -61,32 +54,32 @@ export default function Header() {
             <nav className="hidden md:flex ml-10">
               <Link href="/">
                 <a className={cn(
-                  "mx-3 font-medium hover:text-primary dark:text-white dark:hover:text-primary transition-colors",
-                  location === "/" && "text-primary dark:text-primary"
+                  "mx-3 font-medium hover:text-primary transition-colors",
+                  location === "/" && "text-primary"
                 )}>
                   Home
                 </a>
               </Link>
               <Link href="/categories">
                 <a className={cn(
-                  "mx-3 font-medium hover:text-primary dark:text-white dark:hover:text-primary transition-colors",
-                  location === "/categories" && "text-primary dark:text-primary"
+                  "mx-3 font-medium hover:text-primary transition-colors",
+                  location === "/categories" && "text-primary"
                 )}>
                   Categories
                 </a>
               </Link>
               <Link href="/recommendations">
                 <a className={cn(
-                  "mx-3 font-medium hover:text-primary dark:text-white dark:hover:text-primary transition-colors",
-                  location === "/recommendations" && "text-primary dark:text-primary"
+                  "mx-3 font-medium hover:text-primary transition-colors",
+                  location === "/recommendations" && "text-primary"
                 )}>
                   Recommendations
                 </a>
               </Link>
               <Link href="/watchlist">
                 <a className={cn(
-                  "mx-3 font-medium hover:text-primary dark:text-white dark:hover:text-primary transition-colors",
-                  location === "/watchlist" && "text-primary dark:text-primary"
+                  "mx-3 font-medium hover:text-primary transition-colors",
+                  location === "/watchlist" && "text-primary"
                 )}>
                   Watchlist
                 </a>
@@ -100,7 +93,7 @@ export default function Header() {
               <Input
                 type="text"
                 placeholder="Search movies..."
-                className="w-64 py-2 px-4 rounded-full bg-gray-light dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-secondary text-sm"
+                className="w-64 py-2 px-4 rounded-full bg-gray-light focus:outline-none focus:ring-2 focus:ring-primary text-sm"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
@@ -109,23 +102,9 @@ export default function Header() {
                 variant="ghost" 
                 className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 p-0"
               >
-                <Search className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <Search className="h-4 w-4 text-gray-500" />
               </Button>
             </form>
-            
-            {/* Dark Mode Toggle */}
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors mr-4"
-              onClick={toggleDarkMode}
-            >
-              {darkMode ? (
-                <Sun className="h-5 w-5 text-secondary" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
             
             {/* User Menu */}
             <DropdownMenu>
@@ -165,7 +144,7 @@ export default function Header() {
             <Input
               type="text"
               placeholder="Search movies..."
-              className="w-full py-2 px-4 rounded-full bg-gray-light dark:bg-gray-800 focus:outline-none"
+              className="w-full py-2 px-4 rounded-full bg-gray-light focus:outline-none"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -174,37 +153,37 @@ export default function Header() {
               variant="ghost" 
               className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 p-0"
             >
-              <Search className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <Search className="h-4 w-4 text-gray-500" />
             </Button>
           </form>
         </div>
       </div>
       
       {/* Mobile Navigation Menu */}
-      <div className={`${mobileMenuOpen ? 'block' : 'hidden'} md:hidden bg-white dark:bg-dark shadow-md pb-4 px-4 transition-all duration-200`}>
+      <div className={`${mobileMenuOpen ? 'block' : 'hidden'} md:hidden bg-white shadow-md pb-4 px-4 transition-all duration-200`}>
         <Link href="/">
-          <a className="block py-2 font-medium hover:text-primary dark:text-white dark:hover:text-primary">
+          <a className="block py-2 font-medium hover:text-primary">
             Home
           </a>
         </Link>
         <Link href="/categories">
-          <a className="block py-2 font-medium hover:text-primary dark:text-white dark:hover:text-primary">
+          <a className="block py-2 font-medium hover:text-primary">
             Categories
           </a>
         </Link>
         <Link href="/recommendations">
-          <a className="block py-2 font-medium hover:text-primary dark:text-white dark:hover:text-primary">
+          <a className="block py-2 font-medium hover:text-primary">
             Recommendations
           </a>
         </Link>
         <Link href="/watchlist">
-          <a className="block py-2 font-medium hover:text-primary dark:text-white dark:hover:text-primary">
+          <a className="block py-2 font-medium hover:text-primary">
             Watchlist
           </a>
         </Link>
-        <hr className="my-2 border-gray-200 dark:border-gray-700" />
+        <hr className="my-2 border-gray-200" />
         <button 
-          className="flex items-center py-2 font-medium hover:text-primary dark:text-white dark:hover:text-primary w-full"
+          className="flex items-center py-2 font-medium hover:text-primary w-full"
           onClick={() => navigate("/login")}
         >
           <User className="mr-2 h-4 w-4" /> Login / Register
