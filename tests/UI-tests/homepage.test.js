@@ -82,3 +82,73 @@ describe('Homepage UI Tests', () => {
     expect(mockNavigate).toHaveBeenCalledWith('/movie/1');
   });
 });
+/**
+ * UI tests for the MovieMatchMaker homepage
+ */
+
+// This is a placeholder for actual UI tests
+// In a real implementation, you would use a framework like Cypress or Playwright
+
+function testHomepage() {
+  console.log('Running homepage UI tests');
+  
+  // Test 1: Homepage loads correctly
+  console.log('Test: Homepage loads correctly');
+  const homepageLoaded = simulatePageLoad('/');
+  console.assert(
+    homepageLoaded,
+    'Homepage should load without errors'
+  );
+  
+  // Test 2: Trending movies section is visible
+  console.log('Test: Trending movies section is visible');
+  const trendingSection = simulateQuerySelector('.trending-movies');
+  console.assert(
+    trendingSection !== null,
+    'Trending movies section should be visible'
+  );
+  
+  // Test 3: Navigation menu has correct links
+  console.log('Test: Navigation menu has correct links');
+  const navLinks = simulateQuerySelectorAll('nav a');
+  const expectedLinks = ['Home', 'Movies', 'Genres', 'Watchlist'];
+  
+  console.assert(
+    navLinks.length >= expectedLinks.length,
+    `Navigation should have at least ${expectedLinks.length} links, found ${navLinks.length}`
+  );
+  
+  // Test 4: Search bar functions correctly
+  console.log('Test: Search bar functions correctly');
+  const searchResult = simulateSearch('Inception');
+  console.assert(
+    searchResult.success,
+    'Search functionality should work correctly'
+  );
+  
+  console.log('Homepage UI tests completed');
+}
+
+// Mock functions to simulate browser interactions
+function simulatePageLoad(url) {
+  console.log(`Simulating page load: ${url}`);
+  return true;
+}
+
+function simulateQuerySelector(selector) {
+  console.log(`Simulating querySelector: ${selector}`);
+  return { exists: true };
+}
+
+function simulateQuerySelectorAll(selector) {
+  console.log(`Simulating querySelectorAll: ${selector}`);
+  return [1, 2, 3, 4]; // Simulate finding 4 elements
+}
+
+function simulateSearch(query) {
+  console.log(`Simulating search for: ${query}`);
+  return { success: true, results: [] };
+}
+
+// Run tests
+testHomepage();

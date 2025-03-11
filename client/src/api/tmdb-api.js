@@ -118,3 +118,118 @@ export async function fetchGenres() {
     return [];
   }
 }
+/**
+ * API client for The Movie Database (TMDB)
+ */
+
+const API_KEY = process.env.TMDB_API_KEY;
+const BASE_URL = 'https://api.themoviedb.org/3';
+
+/**
+ * Fetch data from the TMDB API
+ * @param {string} endpoint - API endpoint
+ * @param {object} params - Additional query parameters
+ * @returns {Promise} - Promise with the response data
+ */
+async function fetchFromApi(endpoint, params = {}) {
+  const url = new URL(`${BASE_URL}${endpoint}`);
+  
+  // Add API key and additional parameters
+  url.searchParams.append('api_key', API_KEY);
+  Object.entries(params).forEach(([key, value]) => {
+    url.searchParams.append(key, value);
+  });
+  
+  try {
+    const response = await fetch(url.toString());
+    
+    if (!response.ok) {
+      throw new Error(`TMDB API error: ${response.status} ${response.statusText}`);
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching from TMDB:', error);
+    throw error;
+  }
+}
+
+/**
+ * Get trending movies
+ * @param {string} timeWindow - Time window ('day' or 'week')
+ * @returns {Promise} - Promise with trending movies
+ */
+export function getTrendingMovies(timeWindow = 'week') {
+  return fetchFromApi(`/trending/movie/${timeWindow}`);
+}
+
+/**
+ * Get popular movies
+ * @param {number} page - Page number for pagination
+ * @returns {Promise} - Promise with popular movies
+ */
+export function getPopularMovies(page = 1) {
+  return fetchFromApi('/movie/popular', { page });
+}
+
+/**
+ * Get movie details
+ * @param {number} movieId - Movie ID
+ * @returns {Promise} - Promise with movie details
+ */
+export function getMovieDetails(movieId) {
+  return fetchFromApi(`/movie/${movieId}`, { 
+    append_to_response: 'credits,videos,recommendations,similar'
+  });
+}
+
+/**
+ * Search for movies
+ * @param {string} query - Search query
+ * @param {number} page - Page number for pagination
+ * @returns {Promise} - Promise with search results
+ */
+export function searchMovies(query, page = 1) {
+  return fetchFromApi('/search/movie', { query, page });
+}
+
+/**
+ * Get movies by genre
+ * @param {number} genreId - Genre ID
+ * @param {number} page - Page number for pagination
+ * @returns {Promise} - Promise with movies in the specified genre
+ */
+export function getMoviesByGenre(genreId, page = 1) {
+  return fetchFromApi('/discover/movie', { 
+    with_genres: genreId,
+    page
+  });
+}
+
+/**
+ * Get movie genres
+ * @returns {Promise} - Promise with movie genres
+ */
+export function getMovieGenres() {
+  return fetchFromApi('/genre/movie/list');
+}
+
+/**
+ * Get movie recommendations
+ * @param {number} movieId - Movie ID
+ * @param {number} page - Page number for pagination
+ * @returns {Promise} - Promise with movie recommendations
+ */
+export function getMovieRecommendations(movieId, page = 1) {
+  return fetchFromApi(`/movie/${movieId}/recommendations`, { page });
+}
+
+export default {
+  getTrendingMovies,
+  getPopularMovies,
+  getMovieDetails,
+  searchMovies,
+  getMoviesByGenre,
+  getMovieGenres,
+  getMovieRecommendations
+};

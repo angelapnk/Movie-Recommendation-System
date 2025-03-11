@@ -60,3 +60,39 @@
 2. **Rating System** - Rate movies and see community ratings
 3. **Advanced Filters** - Filter movies by release date, language, and more
 4. **Movie Trailers** - Watch movie trailers directly in the app
+# MovieMatchMaker Features
+
+## Core Features
+
+### User Authentication
+- User registration with email and password
+- Secure login system
+- Profile management
+
+### Movie Discovery
+- Browse trending movies
+- View movie details (synopsis, cast, ratings)
+- Explore movies by genre
+- Search functionality
+
+### Recommendation Engine
+- Personalized movie recommendations based on viewing history
+- Genre-based recommendations
+- Similar movie suggestions
+
+### User Interaction
+- Add movies to watchlist
+- Rate and review movies
+- Share recommendations
+
+## Future Features
+
+### Social Integration
+- Friend connections
+- Shared watchlists
+- Activity feed
+
+### Advanced Recommendations
+- Machine learning based recommendation improvements
+- Content-based filtering
+- Collaborative filtering

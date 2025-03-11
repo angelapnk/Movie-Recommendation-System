@@ -74,3 +74,53 @@ export function createLogger(context: string): Logger {
 
 // Default logger
 export default createLogger('App');
+/**
+ * Simple logger utility for the application
+ */
+
+type LogLevel = 'info' | 'warn' | 'error' | 'debug';
+
+// Enable/disable debug logs based on environment
+const DEBUG_ENABLED = process.env.NODE_ENV !== 'production';
+
+/**
+ * Log a message with the specified level
+ * @param level - Log level
+ * @param message - Message to log
+ * @param data - Optional data to include
+ */
+function log(level: LogLevel, message: string, data?: any): void {
+  // Skip debug logs in production
+  if (level === 'debug' && !DEBUG_ENABLED) {
+    return;
+  }
+  
+  const timestamp = new Date().toISOString();
+  const formattedMessage = `[${level.toUpperCase()}] [${timestamp}] ${message}`;
+  
+  switch (level) {
+    case 'info':
+      console.info(formattedMessage, data || '');
+      break;
+    case 'warn':
+      console.warn(formattedMessage, data || '');
+      break;
+    case 'error':
+      console.error(formattedMessage, data || '');
+      break;
+    case 'debug':
+      console.debug(formattedMessage, data || '');
+      break;
+    default:
+      console.log(formattedMessage, data || '');
+  }
+}
+
+const logger = {
+  info: (message: string, data?: any) => log('info', message, data),
+  warn: (message: string, data?: any) => log('warn', message, data),
+  error: (message: string, data?: any) => log('error', message, data),
+  debug: (message: string, data?: any) => log('debug', message, data)
+};
+
+export default logger;

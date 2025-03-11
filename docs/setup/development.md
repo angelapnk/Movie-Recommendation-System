@@ -129,3 +129,70 @@ This will create optimized production builds for both the frontend and backend.
 - `server/`: Backend code (Express)
 - `shared/`: Shared code and types
 - `docs/`: Documentation
+# Development Setup Guide
+
+## Prerequisites
+- Node.js (v16 or higher)
+- npm (v7 or higher)
+- Git
+
+## Initial Setup
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/angelapnk/Movie-Recommendation-System.git
+   cd Movie-Recommendation-System
+   ```
+
+2. Install dependencies:
+   ```
+   npm install
+   ```
+
+3. Set up environment variables:
+   ```
+   cp .env.example .env
+   ```
+   Edit `.env` and add your TMDB API key
+
+4. Start the development server:
+   ```
+   npm run dev
+   ```
+
+## Development Workflow
+
+1. Create a new branch for your feature:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+2. Make your changes and commit them:
+   ```bash
+   git add .
+   git commit -m "Description of your changes"
+   ```
+
+3. Push your branch to GitHub:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+4. Create a pull request to merge your changes into the `development` branch.
+
+## Testing
+
+To run tests:
+```bash
+npm test
+```
+
+## Building for Production
+
+To build the application for production:
+
+```bash
+npm run build
+```
+
+This will create optimized production builds for both the frontend and backend.

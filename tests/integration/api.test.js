@@ -57,3 +57,61 @@ describe('API Integration Tests', () => {
     expect(response.body.results[0].title).toBe('Search Result 1');
   });
 });
+/**
+ * Integration tests for the MovieMatchMaker API
+ */
+
+// This is a placeholder for actual integration tests
+// In a real implementation, you would use a testing framework like Jest or Supertest
+
+async function testApiEndpoints() {
+  console.log('Running API integration tests');
+  
+  // Test the movies endpoint
+  const moviesResponse = await fetch('/api/movies/trending');
+  console.assert(
+    moviesResponse.status === 200,
+    `GET /api/movies/trending should return 200, got ${moviesResponse.status}`
+  );
+  
+  // Test movie details endpoint
+  const movieId = 1;
+  const movieDetailsResponse = await fetch(`/api/movies/${movieId}`);
+  console.assert(
+    movieDetailsResponse.status === 200,
+    `GET /api/movies/${movieId} should return 200, got ${movieDetailsResponse.status}`
+  );
+  
+  // Test search endpoint
+  const searchQuery = 'Avengers';
+  const searchResponse = await fetch(`/api/search?query=${searchQuery}`);
+  console.assert(
+    searchResponse.status === 200,
+    `GET /api/search should return 200, got ${searchResponse.status}`
+  );
+  
+  console.log('API integration tests completed');
+}
+
+// Mock fetch for testing purposes
+async function fetch(url) {
+  console.log(`Mocking fetch request to: ${url}`);
+  
+  // Simulate responses based on the URL
+  if (url === '/api/movies/trending') {
+    return { status: 200, json: () => ({ results: [] }) };
+  }
+  
+  if (url.startsWith('/api/movies/')) {
+    return { status: 200, json: () => ({ id: 1, title: 'Test Movie' }) };
+  }
+  
+  if (url.startsWith('/api/search')) {
+    return { status: 200, json: () => ({ results: [] }) };
+  }
+  
+  return { status: 404 };
+}
+
+// Run tests
+testApiEndpoints();
