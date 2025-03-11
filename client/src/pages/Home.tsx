@@ -104,14 +104,15 @@ export default function Home() {
           )}
           
           <div className="mt-8 text-center">
-            <Button
-              variant="outline"
-              size="lg"
-              className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white px-6 py-3 rounded-full font-bold transition-colors mx-auto"
-              onClick={handleRandomMovie}
-            >
-              <Shuffle className="mr-2 h-4 w-4" /> Random Movie Suggestion
-            </Button>
+            <Link href="/categories">
+              <Button
+                variant="outline"
+                size="lg"
+                className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white px-6 py-3 rounded-full font-bold transition-colors mx-auto"
+              >
+                <Film className="mr-2 h-4 w-4" /> View All Categories
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
