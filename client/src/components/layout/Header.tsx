@@ -61,32 +61,32 @@ export default function Header() {
             <nav className="hidden md:flex ml-10">
               <Link href="/">
                 <a className={cn(
-                  "mx-3 font-medium hover:text-primary dark:hover:text-secondary transition-colors",
-                  location === "/" && "text-primary dark:text-secondary"
+                  "mx-3 font-medium hover:text-primary dark:text-white dark:hover:text-primary transition-colors",
+                  location === "/" && "text-primary dark:text-primary"
                 )}>
                   Home
                 </a>
               </Link>
               <Link href="/categories">
                 <a className={cn(
-                  "mx-3 font-medium hover:text-primary dark:hover:text-secondary transition-colors",
-                  location === "/categories" && "text-primary dark:text-secondary"
+                  "mx-3 font-medium hover:text-primary dark:text-white dark:hover:text-primary transition-colors",
+                  location === "/categories" && "text-primary dark:text-primary"
                 )}>
                   Categories
                 </a>
               </Link>
               <Link href="/recommendations">
                 <a className={cn(
-                  "mx-3 font-medium hover:text-primary dark:hover:text-secondary transition-colors",
-                  location === "/recommendations" && "text-primary dark:text-secondary"
+                  "mx-3 font-medium hover:text-primary dark:text-white dark:hover:text-primary transition-colors",
+                  location === "/recommendations" && "text-primary dark:text-primary"
                 )}>
                   Recommendations
                 </a>
               </Link>
               <Link href="/watchlist">
                 <a className={cn(
-                  "mx-3 font-medium hover:text-primary dark:hover:text-secondary transition-colors",
-                  location === "/watchlist" && "text-primary dark:text-secondary"
+                  "mx-3 font-medium hover:text-primary dark:text-white dark:hover:text-primary transition-colors",
+                  location === "/watchlist" && "text-primary dark:text-primary"
                 )}>
                   Watchlist
                 </a>
@@ -137,12 +137,7 @@ export default function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => 
-                  toast({
-                    title: "User authentication",
-                    description: "Login feature is not implemented yet.",
-                  })
-                }>
+                <DropdownMenuItem onClick={() => navigate("/login")}>
                   Login / Register
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -188,34 +183,29 @@ export default function Header() {
       {/* Mobile Navigation Menu */}
       <div className={`${mobileMenuOpen ? 'block' : 'hidden'} md:hidden bg-white dark:bg-dark shadow-md pb-4 px-4 transition-all duration-200`}>
         <Link href="/">
-          <a className="block py-2 font-medium hover:text-primary dark:hover:text-secondary">
+          <a className="block py-2 font-medium hover:text-primary dark:text-white dark:hover:text-primary">
             Home
           </a>
         </Link>
         <Link href="/categories">
-          <a className="block py-2 font-medium hover:text-primary dark:hover:text-secondary">
+          <a className="block py-2 font-medium hover:text-primary dark:text-white dark:hover:text-primary">
             Categories
           </a>
         </Link>
         <Link href="/recommendations">
-          <a className="block py-2 font-medium hover:text-primary dark:hover:text-secondary">
+          <a className="block py-2 font-medium hover:text-primary dark:text-white dark:hover:text-primary">
             Recommendations
           </a>
         </Link>
         <Link href="/watchlist">
-          <a className="block py-2 font-medium hover:text-primary dark:hover:text-secondary">
+          <a className="block py-2 font-medium hover:text-primary dark:text-white dark:hover:text-primary">
             Watchlist
           </a>
         </Link>
         <hr className="my-2 border-gray-200 dark:border-gray-700" />
         <button 
-          className="flex items-center py-2 font-medium hover:text-primary dark:hover:text-secondary w-full"
-          onClick={() => 
-            toast({
-              title: "User authentication",
-              description: "Login feature is not implemented yet.",
-            })
-          }
+          className="flex items-center py-2 font-medium hover:text-primary dark:text-white dark:hover:text-primary w-full"
+          onClick={() => navigate("/login")}
         >
           <User className="mr-2 h-4 w-4" /> Login / Register
         </button>

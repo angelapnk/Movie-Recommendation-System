@@ -9,6 +9,7 @@ import Categories from "@/pages/Categories";
 import Recommendations from "@/pages/Recommendations";
 import Watchlist from "@/pages/Watchlist";
 import SearchResults from "@/pages/SearchResults";
+import Login from "@/pages/Login";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
