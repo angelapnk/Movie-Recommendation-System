@@ -1,22 +1,26 @@
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "wouter";
-import { Film, Search, Menu, X, User } from "lucide-react";
+import { Film, Search, Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/use-auth";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export default function Header() {
   const [location, navigate] = useLocation();
   const [query, setQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { toast } = useToast();
+  const { user, logoutMutation } = useAuth();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +34,10 @@ export default function Header() {
         variant: "destructive"
       });
     }
+  };
+  
+  const handleLogout = () => {
+    logoutMutation.mutate();
   };
 
 
@@ -110,15 +118,37 @@ export default function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
-                  <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
-                    <User className="h-4 w-4 text-gray-600" />
-                  </div>
+                  {user ? (
+                    <Avatar className="h-8 w-8 border border-gray-200">
+                      <AvatarFallback className="bg-primary/10 text-primary">
+                        {user.username.substring(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
+                      <User className="h-4 w-4 text-gray-600" />
+                    </div>
+                  )}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => navigate("/login")}>
-                  Login / Register
-                </DropdownMenuItem>
+                {user ? (
+                  <>
+                    <DropdownMenuItem disabled>
+                      <span className="font-medium">{user.username}</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleLogout}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log Out</span>
+                    </DropdownMenuItem>
+                  </>
+                ) : (
+                  <DropdownMenuItem onClick={() => navigate("/auth")}>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Login / Register</span>
+                  </DropdownMenuItem>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
             
@@ -182,12 +212,21 @@ export default function Header() {
           </a>
         </Link>
         <hr className="my-2 border-gray-200" />
-        <button 
-          className="flex items-center py-2 font-medium hover:text-primary w-full"
-          onClick={() => navigate("/login")}
-        >
-          <User className="mr-2 h-4 w-4" /> Login / Register
-        </button>
+        {user ? (
+          <button 
+            className="flex items-center py-2 font-medium hover:text-primary w-full"
+            onClick={handleLogout}
+          >
+            <LogOut className="mr-2 h-4 w-4" /> Log Out
+          </button>
+        ) : (
+          <button 
+            className="flex items-center py-2 font-medium hover:text-primary w-full"
+            onClick={() => navigate("/auth")}
+          >
+            <User className="mr-2 h-4 w-4" /> Login / Register
+          </button>
+        )}
       </div>
     </header>
   );

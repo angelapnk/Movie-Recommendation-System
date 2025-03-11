@@ -3,6 +3,10 @@ import {
   movies, Movie, InsertMovie,
   users, User, InsertUser 
 } from "@shared/schema";
+import session from "express-session";
+import createMemoryStore from "memorystore";
+
+const MemoryStore = createMemoryStore(session);
 
 // Interface for storage operations
 export interface IStorage {
@@ -22,6 +26,9 @@ export interface IStorage {
   getMoviesByGenre(genreId: number): Promise<Movie[]>;
   createMovie(movie: InsertMovie): Promise<Movie>;
   searchMovies(query: string): Promise<Movie[]>;
+  
+  // Session store
+  sessionStore: session.Store;
 }
 
 export class MemStorage implements IStorage {
@@ -31,6 +38,7 @@ export class MemStorage implements IStorage {
   private currentUserId: number;
   private currentMovieId: number;
   private currentGenreId: number;
+  public sessionStore: session.Store;
 
   constructor() {
     this.users = new Map();
@@ -39,6 +47,9 @@ export class MemStorage implements IStorage {
     this.currentUserId = 1;
     this.currentMovieId = 1;
     this.currentGenreId = 1;
+    this.sessionStore = new MemoryStore({
+      checkPeriod: 86400000 // prune expired entries every 24h
+    });
   }
 
   // User operations
@@ -106,9 +117,27 @@ export class MemStorage implements IStorage {
 
   async createMovie(insertMovie: InsertMovie): Promise<Movie> {
     const id = typeof insertMovie.tmdbId === 'number' ? insertMovie.tmdbId : this.currentMovieId++;
-    const movie: Movie = { 
-      ...insertMovie, 
+    const movie: Movie = {
       id,
+      title: insertMovie.title,
+      tmdbId: insertMovie.tmdbId,
+      releaseDate: insertMovie.releaseDate,
+      backdropPath: insertMovie.backdropPath || null,
+      posterPath: insertMovie.posterPath || null,
+      overview: insertMovie.overview || null,
+      voteAverage: insertMovie.voteAverage || null,
+      voteCount: insertMovie.voteCount || null,
+      adult: insertMovie.adult || false,
+      originalLanguage: insertMovie.originalLanguage || null,
+      popularity: insertMovie.popularity || null,
+      runtime: insertMovie.runtime || null,
+      genres: insertMovie.genres || null,
+      director: insertMovie.director || null,
+      credits: insertMovie.credits || null,
+      status: insertMovie.status || null,
+      tagline: insertMovie.tagline || null,
+      budget: insertMovie.budget || null,
+      revenue: insertMovie.revenue || null,
       createdAt: new Date()
     };
     this.movies.set(id, movie);

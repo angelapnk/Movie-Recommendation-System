@@ -9,9 +9,11 @@ import Categories from "@/pages/Categories";
 import Recommendations from "@/pages/Recommendations";
 import Watchlist from "@/pages/Watchlist";
 import SearchResults from "@/pages/SearchResults";
-import Login from "@/pages/Login";
+import AuthPage from "@/pages/auth-page";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { AuthProvider } from "@/hooks/use-auth";
+import { ProtectedRoute } from "./lib/protected-route";
 
 function Router() {
   return (
@@ -23,9 +25,9 @@ function Router() {
           <Route path="/movie/:id" component={MovieDetails} />
           <Route path="/categories" component={Categories} />
           <Route path="/recommendations" component={Recommendations} />
-          <Route path="/watchlist" component={Watchlist} />
+          <ProtectedRoute path="/watchlist" component={Watchlist} />
           <Route path="/search" component={SearchResults} />
-          <Route path="/login" component={Login} />
+          <Route path="/auth" component={AuthPage} />
           <Route component={NotFound} />
         </Switch>
       </main>
@@ -37,8 +39,10 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router />
-      <Toaster />
+      <AuthProvider>
+        <Router />
+        <Toaster />
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

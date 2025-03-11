@@ -1,6 +1,7 @@
-import type { Express, Request, Response } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { setupAuth } from "./auth";
 import { z } from "zod";
 import { ZodError } from "zod";
 import fetch from "node-fetch";
@@ -46,6 +47,9 @@ async function fetchFromTMDB(endpoint: string, params: Record<string, string> = 
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Set up authentication
+  setupAuth(app);
+  
   const httpServer = createServer(app);
 
   // 1. Trending Movies API
