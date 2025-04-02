@@ -78,8 +78,24 @@ app.use((req, res, next) => {
     }
   });
 
-  server.listen(port, localIP, () => {
+  server.listen(port, "0.0.0.0", () => {
+    const networkInterfaces = os.networkInterfaces();
+    let localIP = "";
+    
+    Object.keys(networkInterfaces).forEach((interfaceName) => {
+      const interfaces = networkInterfaces[interfaceName];
+      if (interfaces) {
+        for (const iface of interfaces) {
+          if (iface.family === 'IPv4' && !iface.internal) {
+            localIP = iface.address;
+            break;
+          }
+        }
+      }
+    });
+
     log(`Server running at:`);
-    log(`- Local: http://${localIP}:${port}`);
+    log(`- Local: http://localhost:${port}`);
+    log(`- Network: http://${localIP}:${port}`);
   });
 })();
