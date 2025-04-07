@@ -2,6 +2,8 @@
 
 A comprehensive movie recommendation website featuring trending movies, search functionality, categorization, and personalized recommendations. This platform is designed to help users discover movies through various browsing options and maintain watchlists.
 
+![Screenshot 2025-04-07 162304](https://github.com/user-attachments/assets/58a39356-56b3-4fc5-9eee-7917df9a052c)
+
 ## Features
 
 - User authentication (register, login, logout)
@@ -20,6 +22,7 @@ A comprehensive movie recommendation website featuring trending movies, search f
 - **State Management**: React Query
 - **Routing**: wouter
 - **API Integration**: TMDB API
+
 
 ## Setup and Installation
 
