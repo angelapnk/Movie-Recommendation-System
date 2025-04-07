@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "wouter";
 import { Film, Search, Menu, X, User, LogOut } from "lucide-react";
@@ -42,61 +43,56 @@ export default function Header() {
     logoutMutation.mutate();
   };
 
-
-
   useEffect(() => {
-    // Clean up the query after navigation
     setMobileMenuOpen(false);
   }, [location]);
 
   return (
-    <header className="sticky top-0 bg-white shadow-md z-50 transition-colors duration-200">
+    <header className="sticky top-0 bg-background border-b z-50 transition-colors duration-200">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center">
             {/* Logo */}
-            <Link href="/" className="flex items-center">
-              <Film className="h-8 w-8 text-primary mr-2" />
-              <div className="font-heading font-bold text-2xl">MovieMatcher</div>
+            <Link href="/">
+              <div className="flex items-center cursor-pointer">
+                <Film className="h-8 w-8 text-primary mr-2" />
+                <div className="font-heading font-bold text-2xl text-foreground">MovieMatchMaker</div>
+              </div>
             </Link>
             
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex ml-10">
-              <Link 
-                href="/" 
-                className={cn(
-                  "mx-3 font-medium hover:text-primary transition-colors",
+            <nav className="hidden md:flex ml-10 text-foreground">
+              <Link href="/">
+                <div className={cn(
+                  "mx-3 font-medium hover:text-primary transition-colors cursor-pointer",
                   location === "/" && "text-primary"
-                )}
-              >
-                Home
+                )}>
+                  Home
+                </div>
               </Link>
-              <Link 
-                href="/categories"
-                className={cn(
-                  "mx-3 font-medium hover:text-primary transition-colors",
+              <Link href="/categories">
+                <div className={cn(
+                  "mx-3 font-medium hover:text-primary transition-colors cursor-pointer",
                   location === "/categories" && "text-primary"
-                )}
-              >
-                Categories
+                )}>
+                  Categories
+                </div>
               </Link>
-              <Link 
-                href="/recommendations"
-                className={cn(
-                  "mx-3 font-medium hover:text-primary transition-colors",
+              <Link href="/recommendations">
+                <div className={cn(
+                  "mx-3 font-medium hover:text-primary transition-colors cursor-pointer",
                   location === "/recommendations" && "text-primary"
-                )}
-              >
-                Recommendations
+                )}>
+                  Recommendations
+                </div>
               </Link>
-              <Link 
-                href="/watchlist"
-                className={cn(
-                  "mx-3 font-medium hover:text-primary transition-colors",
+              <Link href="/watchlist">
+                <div className={cn(
+                  "mx-3 font-medium hover:text-primary transition-colors cursor-pointer",
                   location === "/watchlist" && "text-primary"
-                )}
-              >
-                Watchlist
+                )}>
+                  Watchlist
+                </div>
               </Link>
             </nav>
           </div>
@@ -107,7 +103,7 @@ export default function Header() {
               <Input
                 type="text"
                 placeholder="Search movies..."
-                className="w-64 py-2 px-4 rounded-full bg-gray-light focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                className="w-64 py-2 px-4 rounded-full bg-muted focus:outline-none focus:ring-2 focus:ring-primary text-sm"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
@@ -116,7 +112,7 @@ export default function Header() {
                 variant="ghost" 
                 className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 p-0"
               >
-                <Search className="h-4 w-4 text-gray-500" />
+                <Search className="h-4 w-4 text-muted-foreground" />
               </Button>
             </form>
             
@@ -125,14 +121,14 @@ export default function Header() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
                   {user ? (
-                    <Avatar className="h-8 w-8 border border-gray-200">
+                    <Avatar className="h-8 w-8 border border-border">
                       <AvatarFallback className="bg-primary/10 text-primary">
                         {user.username.substring(0, 2).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
-                      <User className="h-4 w-4 text-gray-600" />
+                    <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                      <User className="h-4 w-4 text-muted-foreground" />
                     </div>
                   )}
                 </Button>
@@ -180,7 +176,7 @@ export default function Header() {
             <Input
               type="text"
               placeholder="Search movies..."
-              className="w-full py-2 px-4 rounded-full bg-gray-light focus:outline-none"
+              className="w-full py-2 px-4 rounded-full bg-muted focus:outline-none"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -189,35 +185,27 @@ export default function Header() {
               variant="ghost" 
               className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 p-0"
             >
-              <Search className="h-4 w-4 text-gray-500" />
+              <Search className="h-4 w-4 text-muted-foreground" />
             </Button>
           </form>
         </div>
       </div>
       
       {/* Mobile Navigation Menu */}
-      <div className={`${mobileMenuOpen ? 'block' : 'hidden'} md:hidden bg-white shadow-md pb-4 px-4 transition-all duration-200`}>
-        <Link href="/">
-          <a className="block py-2 font-medium hover:text-primary">
-            Home
-          </a>
-        </Link>
-        <Link href="/categories">
-          <a className="block py-2 font-medium hover:text-primary">
-            Categories
-          </a>
-        </Link>
-        <Link href="/recommendations">
-          <a className="block py-2 font-medium hover:text-primary">
-            Recommendations
-          </a>
-        </Link>
-        <Link href="/watchlist">
-          <a className="block py-2 font-medium hover:text-primary">
-            Watchlist
-          </a>
-        </Link>
-        <hr className="my-2 border-gray-200" />
+      <div className={`${mobileMenuOpen ? 'block' : 'hidden'} md:hidden bg-background border-t pb-4 px-4`}>
+        <div onClick={() => navigate("/")} className="block py-2 font-medium hover:text-primary cursor-pointer">
+          Home
+        </div>
+        <div onClick={() => navigate("/categories")} className="block py-2 font-medium hover:text-primary cursor-pointer">
+          Categories
+        </div>
+        <div onClick={() => navigate("/recommendations")} className="block py-2 font-medium hover:text-primary cursor-pointer">
+          Recommendations
+        </div>
+        <div onClick={() => navigate("/watchlist")} className="block py-2 font-medium hover:text-primary cursor-pointer">
+          Watchlist
+        </div>
+        <hr className="my-2 border-border" />
         {user ? (
           <button 
             className="flex items-center py-2 font-medium hover:text-primary w-full"
