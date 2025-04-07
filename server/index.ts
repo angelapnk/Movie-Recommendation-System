@@ -1,6 +1,8 @@
-import express, { type Request, Response, NextFunction } from "express";
+import express from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import os from 'os';
 
 const app = express();
 app.use(express.json());
@@ -59,11 +61,41 @@ app.use((req, res, next) => {
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client
   const port = 5000;
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
+  const os = await import('os');
+  const networkInterfaces = os.networkInterfaces();
+  let localIP = '127.0.0.1';
+
+  // Get the local IP address
+  Object.keys(networkInterfaces).forEach((interfaceName) => {
+    const interfaces = networkInterfaces[interfaceName];
+    if (interfaces) {
+      for (const iface of interfaces) {
+        if (iface.family === 'IPv4' && !iface.internal) {
+          localIP = iface.address;
+          break;
+        }
+      }
+    }
+  });
+
+  server.listen(port, "0.0.0.0", () => {
+    const networkInterfaces = os.networkInterfaces();
+    let localIP = "";
+    
+    Object.keys(networkInterfaces).forEach((interfaceName) => {
+      const interfaces = networkInterfaces[interfaceName];
+      if (interfaces) {
+        for (const iface of interfaces) {
+          if (iface.family === 'IPv4' && !iface.internal) {
+            localIP = iface.address;
+            break;
+          }
+        }
+      }
+    });
+
+    log(`Server running at:`);
+    log(`- Local: http://localhost:${port}`);
+    log(`- Network: http://${localIP}:${port}`);
   });
 })();
