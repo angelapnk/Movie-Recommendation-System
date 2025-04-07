@@ -50,49 +50,51 @@ export default function Header() {
   }, [location]);
 
   return (
-    <header className="sticky top-0 bg-white shadow-md z-50 transition-colors duration-200">
+    <header className="sticky top-0 bg-background text-foreground shadow-md z-50 transition-colors duration-200 dark:bg-gray-900">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center">
             {/* Logo */}
-            <Link href="/" className="flex items-center">
-              <Film className="h-8 w-8 text-primary mr-2" />
-              <span className="font-heading font-bold text-2xl">MovieMatcher</span>
+            <Link href="/">
+              <div className="flex items-center">
+                <Film className="h-8 w-8 text-primary mr-2" />
+                <span className="font-heading font-bold text-2xl">MovieMatchMaker</span>
+              </div>
             </Link>
             
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex ml-10">
+            <nav className="hidden md:flex ml-10 items-center">
               <Link href="/">
-                <a className={cn(
-                  "mx-3 font-medium hover:text-primary transition-colors",
+                <div className={cn(
+                  "mx-3 font-medium text-foreground hover:text-primary transition-colors",
                   location === "/" && "text-primary"
                 )}>
                   Home
-                </a>
+                </div>
               </Link>
               <Link href="/categories">
-                <a className={cn(
-                  "mx-3 font-medium hover:text-primary transition-colors",
+                <div className={cn(
+                  "mx-3 font-medium text-foreground hover:text-primary transition-colors",
                   location === "/categories" && "text-primary"
                 )}>
                   Categories
-                </a>
+                </div>
               </Link>
               <Link href="/recommendations">
-                <a className={cn(
-                  "mx-3 font-medium hover:text-primary transition-colors",
+                <div className={cn(
+                  "mx-3 font-medium text-foreground hover:text-primary transition-colors",
                   location === "/recommendations" && "text-primary"
                 )}>
                   Recommendations
-                </a>
+                </div>
               </Link>
               <Link href="/watchlist">
-                <a className={cn(
-                  "mx-3 font-medium hover:text-primary transition-colors",
+                <div className={cn(
+                  "mx-3 font-medium text-foreground hover:text-primary transition-colors",
                   location === "/watchlist" && "text-primary"
                 )}>
                   Watchlist
-                </a>
+                </div>
               </Link>
             </nav>
           </div>
