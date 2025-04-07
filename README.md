@@ -2,7 +2,11 @@
 
 A comprehensive movie recommendation website featuring trending movies, search functionality, categorization, and personalized recommendations. This platform is designed to help users discover movies through various browsing options and maintain watchlists.
 
-![Screenshot 2025-04-07 162304](https://github.com/user-attachments/assets/58a39356-56b3-4fc5-9eee-7917df9a052c)
+## 🚀 Live Demo
+
+[![Live Demo](https://img.shields.io/badge/View%20Website-Click%20Here-blue?style=for-the-badge&logo=render)](https://movie-recommendation-system-99ve.onrender.com)
+
+Check out the live version of this project hosted on Render!
 
 ## Features
 
