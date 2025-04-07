@@ -1,69 +1,48 @@
 # MovieMatchMaker
 
-MovieMatchMaker is a full-stack web application that helps users discover movies through personalized recommendations. The application allows users to browse trending movies, search for specific titles, explore movies by genre, and maintain a personal watchlist.
+A comprehensive movie recommendation website featuring trending movies, search functionality, categorization, and personalized recommendations. This platform is designed to help users discover movies through various browsing options and maintain watchlists.
+
+![Screenshot 2025-04-07 162304](https://github.com/user-attachments/assets/58a39356-56b3-4fc5-9eee-7917df9a052c)
 
 ## Features
 
-- **User Authentication**: Secure login and registration system
-- **Movie Discovery**: Browse trending movies and explore by genre
-- **Search Functionality**: Find movies by title, actor, or keyword
-- **Movie Details**: View comprehensive information about each movie
-- **Personalized Watchlist**: Save favorite movies to watch later
-- **Recommendations**: Get personalized movie suggestions based on preferences
+- User authentication (register, login, logout)
+- Trending movies display
+- Search functionality
+- Movie categorization by genre
+- Personalized movie recommendations
+- User watchlists
+- Detailed movie information
 
-## Technology Stack
+## Technologies Used
 
-### Frontend
-- React
-- TypeScript
-- Tailwind CSS
-- Shadcn UI
-- React Query (TanStack Query)
-- Wouter (Routing)
+- **Frontend**: React.js, TailwindCSS, shadcn/ui
+- **Backend**: Node.js, Express
+- **Authentication**: Passport.js with local strategy
+- **State Management**: React Query
+- **Routing**: wouter
+- **API Integration**: TMDB API
 
-### Backend
-- Node.js
-- Express
-- Passport.js (Authentication)
-- Drizzle ORM
-- Zod (Validation)
 
-### External APIs
-- The Movie Database (TMDB) API
-
-## Documentation
-
-Detailed documentation is available in the `/docs` directory:
-
-- [Feature Requirements](docs/requirements/features.md)
-- [API Documentation](docs/api.md)
-- [Development Guide](docs/setup/development.md)
-
-## Getting Started
-
-### Prerequisites
-- Node.js (v16 or higher)
-- npm (v7 or higher)
-- TMDB API Key
-
-### Installation
+## Setup and Installation
 
 1. Clone the repository
 2. Install dependencies with `npm install`
-3. Create a `.env` file with your TMDB API key and session secret
+3. Create a `.env` file with required API keys (see `.env.example`)
 4. Start the development server with `npm run dev`
 
-See the [Development Guide](docs/setup/development.md) for detailed setup instructions.
+## Environment Variables
 
-## Contributing
+- `TMDB_API_KEY` - API key for The Movie Database API
 
-Contributions are welcome! Please see our [GitHub Setup Guide](GITHUB_SETUP.md) for information on how to contribute to this project.
+## Project Structure
 
-## License
+The project follows a modern React application structure with a Node.js backend:
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+- `/client` - Frontend React application
+- `/server` - Backend Node.js/Express server
+- `/shared` - Shared types and schemas
 
-## Acknowledgments
+## Contributions
 
-- Data provided by [The Movie Database (TMDB)](https://www.themoviedb.org/)
-- This product uses the TMDB API but is not endorsed or certified by TMDB.
+Contributions are welcome! Please feel free to submit a Pull Request.
