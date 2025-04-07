@@ -57,42 +57,46 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center">
               <Film className="h-8 w-8 text-primary mr-2" />
-              <span className="font-heading font-bold text-2xl">MovieMatcher</span>
+              <div className="font-heading font-bold text-2xl">MovieMatcher</div>
             </Link>
             
             {/* Desktop Navigation */}
             <nav className="hidden md:flex ml-10">
-              <Link href="/">
-                <a className={cn(
+              <Link 
+                href="/" 
+                className={cn(
                   "mx-3 font-medium hover:text-primary transition-colors",
                   location === "/" && "text-primary"
-                )}>
-                  Home
-                </a>
+                )}
+              >
+                Home
               </Link>
-              <Link href="/categories">
-                <a className={cn(
+              <Link 
+                href="/categories"
+                className={cn(
                   "mx-3 font-medium hover:text-primary transition-colors",
                   location === "/categories" && "text-primary"
-                )}>
-                  Categories
-                </a>
+                )}
+              >
+                Categories
               </Link>
-              <Link href="/recommendations">
-                <a className={cn(
+              <Link 
+                href="/recommendations"
+                className={cn(
                   "mx-3 font-medium hover:text-primary transition-colors",
                   location === "/recommendations" && "text-primary"
-                )}>
-                  Recommendations
-                </a>
+                )}
+              >
+                Recommendations
               </Link>
-              <Link href="/watchlist">
-                <a className={cn(
+              <Link 
+                href="/watchlist"
+                className={cn(
                   "mx-3 font-medium hover:text-primary transition-colors",
                   location === "/watchlist" && "text-primary"
-                )}>
-                  Watchlist
-                </a>
+                )}
+              >
+                Watchlist
               </Link>
             </nav>
           </div>
